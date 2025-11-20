@@ -4,7 +4,7 @@ import mongoose from "mongoose";
 
 const app = express();
 
-await mongoose.connect("mongodb://root:root@localhost:27017/no-sql-project?authSource=admin");
+await mongoose.connect(process.env.MONGODB_URL as string);
 
 app.use(express.json());
 
