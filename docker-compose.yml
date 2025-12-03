@@ -7,3 +7,24 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: root
+    networks:
+      - nosql-network
+
+  api:
+    build: .
+    container_name: nosql-api
+    ports:
+      - "3000:3000"
+    environment:
+      MONGODB_URL: mongodb://root:root@db:27017/nosql-project?authSource=admin
+      PORT: 3000
+    depends_on:
+      - db
+    volumes:
+      - ./src:/app/src
+    networks:
+      - nosql-network
+
+networks:
+  nosql-network:
+    driver: bridge
